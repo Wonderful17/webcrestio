@@ -1,0 +1,4 @@
+import type {Metadata} from 'next';import WorkCard from '@/components/WorkCard';import Cta from '@/components/Cta';import {projects} from '@/lib/projects';
+export const metadata:Metadata={title:'Work',description:'Concept store designs and product creative for beauty, fashion and home brands.'};
+export default function Work(){return(<><section className="ph"><div className="w"><div className="eb">Work</div><h1>Thoughtful work. <em>Different possibilities.</em></h1><p className="lead">Concept projects across beauty, fashion, and home: design explorations and creative samples that show how we think about storefronts, product pages, and product creative.</p></div></section>
+<section style={{paddingBottom:120}}><div className="w wg">{projects.map(p=><WorkCard key={p.slug} p={p}/>)}</div></section><Cta/></>)}
