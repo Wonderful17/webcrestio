@@ -1,0 +1,5 @@
+import type {Metadata} from 'next';import Link from 'next/link';import {getPosts} from '@/lib/sanity';import {urlFor} from '@/lib/image';
+export const metadata:Metadata={title:'Blog',description:'Notes on Shopify and ecommerce from Webcrestio.'};
+export default async function Blog(){const posts=await getPosts();
+return(<><section className="ph"><div className="w"><div className="eb">Blog</div><h1>Notes on <em>ecommerce</em> and Shopify.</h1></div></section>
+<section style={{paddingBottom:120}}><div className="w">{posts.length?<div className="bl">{posts.map(p=>(<Link key={p.slug} href={`/blog/${p.slug}`} className="rv">{p.coverImage&&/* eslint-disable-next-line @next/next/no-img-element */<img src={urlFor(p.coverImage).width(800).height(533).url()} alt={p.coverImage.alt||''} width={800} height={533} loading="lazy"/>}<h3>{p.title}</h3>{p.excerpt&&<p>{p.excerpt}</p>}{p.publishedAt&&<small>{new Date(p.publishedAt).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}</small>}</Link>))}</div>:<div className="inv"><p>Posts will appear here once they’re published.</p></div>}</div></section></>)}
