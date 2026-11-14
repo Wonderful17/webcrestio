@@ -1,10 +1,10 @@
 import Faq from '@/components/Faq';import ReviewSection from '@/components/ReviewSection';import Credentials from '@/components/Credentials';import {getApprovedReviews} from '@/lib/sanity';import {site} from '@/lib/config';
 import Image from 'next/image';import Link from 'next/link';import type {CSSProperties} from 'react';
-import Tilt from '@/components/Tilt';import WorkCard from '@/components/WorkCard';import Cta from '@/components/Cta';import {projects} from '@/lib/projects';
+import Tilt from '@/components/Tilt';import WorkSection from '@/components/WorkSection';import Cta from '@/components/Cta';import {getProjects} from '@/lib/portfolio';
 const st=(o:Record<string,string|number>)=>o as CSSProperties;
 const W=({k,c}:{k:number;c:string})=><><span className="wd" style={st({'--k':k})}>{c}</span>{' '}</>;
 const mq=['Shopify stores','Store improvements','Product creative','Beauty','Fashion','Home'];
-export default async function Home(){const reviews=await getApprovedReviews();return(<>
+export default async function Home(){const [reviews, projects] = await Promise.all([getApprovedReviews(), getProjects()]);return(<>
 <section className="hero"><div className="w hg"><div className="hi">
 <div className="eb" style={st({'--i':0})}>Shopify development &amp; ecommerce creative</div>
 <h1 style={st({'--i':1})} aria-label="Let’s build your next 7-figure ecommerce website."><span className="l1" aria-hidden="true"><W k={0} c="Let’s"/><W k={1} c="build"/><W k={2} c="your"/><W k={3} c="next"/></span><em aria-hidden="true"><W k={4} c="7-figure"/><W k={5} c="ecommerce"/><W k={6} c="website."/></em></h1>
@@ -18,8 +18,13 @@ export default async function Home(){const reviews=await getApprovedReviews();re
 <div className="mq" aria-hidden="true"><div>{[...mq,...mq].map((s,i)=><span key={i}>{s}</span>)}</div></div>
 <section className="sec st"><div className="w"><div className="hd"><h2 className="rv">More than a <em>beautiful</em> storefront.</h2><p className="lead rv">Your store needs to look right, work smoothly, and help customers take the next step. We bring design, development, and product creative together to create a shopping experience that feels considered from the first visit to the final click.</p></div>
 <div className="ig">{[['Designed around your brand','A distinctive storefront that reflects your products, audience, and business.'],['Built for everyday shopping','Clear navigation, useful product information, and a purchase journey that feels straightforward.'],['Ready for what comes next','A flexible foundation for new products, campaigns, integrations, and ongoing improvements.']].map(([t,d],i)=>(<div className="rv" key={t} style={st({'--d':`${i*0.1}s`})}><b>0{i+1}</b><h3>{t}</h3><p>{d}</p></div>))}</div></div></section>
-<section className="sec"><div className="w"><div className="hd"><h2 className="rv">Thoughtful work. <em>Different possibilities.</em></h2><p className="lead rv">Explore store concepts, shopping experiences, and product creative across beauty, fashion, and home. These are design explorations and creative samples, not live client stores.</p></div>
-<div className="wg">{projects.map(p=><WorkCard key={p.slug} p={p}/>)}</div></div></section>
+<section className="sec">
+  <WorkSection projects={projects} intro={<>
+    <h2>Thoughtful work. <em>Different possibilities.</em></h2>
+    <p className="lead">Explore storefront design, shopping experiences, and product creative.</p>
+    <Link className="ln" href="/work">View all work →</Link>
+  </>} />
+</section>
 <section className="sec dk"><div className="w"><h2 className="rv" style={{maxWidth:'16ch'}}>Everything your Shopify store needs to <em>move forward.</em></h2>
 <div className="sv3">{[['Shopify stores','From a first launch to a complete redesign, we create stores that bring your brand and products together.'],['Store improvements','Improve the details that shape the shopping experience, from product pages and navigation to integrations and ongoing support.'],['Product creative','Turn product imagery into polished AI videos and advertising creative for your store and marketing campaigns.']].map(([t,d],i)=>(<div className="rv" key={t} style={st({'--d':`${i*0.1}s`})}><h3>{t}</h3><p>{d}</p></div>))}</div>
 <Link className="btn" href="/services">Explore all services <span>→</span></Link></div></section>

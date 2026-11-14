@@ -1,4 +1,4 @@
-export type Project={slug:string;name:string;type:string;cat:string;label:string;summary:string;brief:string;approach:string;highlights:string[];hero:string;card:string;gallery:{src:string;alt:string;caption:string}[]};
+export type Project={slug:string;name:string;type:string;cat:string;label:string;summary:string;brief:string;approach:string;highlights:string[];hero:string;heroAlt?:string;card:string;videoUrl?:string;videoPoster?:string;gallery:{src:string;alt:string;caption:string}[]};
 export const projects:Project[]=[
  {
   "slug": "aurelle",
@@ -108,6 +108,8 @@ export const projects:Project[]=[
  },
  {
   "slug": "video",
+  "videoUrl": "/work/aurelle-commercial.mp4",
+  "videoPoster": "/work/poster.jpg",
   "name": "AURELLE",
   "type": "AI product commercial",
   "cat": "AI product creative",
